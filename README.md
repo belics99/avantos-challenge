@@ -9,6 +9,12 @@ It allows users to:
 - Configure prefill mappings between upstream and downstream forms
 - Extend data sources for prefill in a scalable way
 
+## Preview
+
+- ![alt text](image.png)
+- ![alt text](image-1.png)
+- ![alt text](image-2.png)
+
 ## Tech Stack
 
 - Next.js
@@ -121,12 +127,16 @@ Examples:
 - Form fields (direct)
 - Form fields (transitive)
 - Global data
-  <i>New sources can be added without changing UI logic.</i>
+- <i>New sources can be added without changing UI logic.</i>
 
 ## Testing
 
 - Jest
 - React Testing Library
+
+```
+    npm run test
+```
 
 ## Demo
 
@@ -136,7 +146,18 @@ https://your-video-link.com
 
 ## Notes
 
-Used LLM: ChatGPT
+Used docs:
+
+- https://fluttering-atmosphere-1b5.notion.site/Journey-Builder-React-Coding-Challenge-190d5fe264fa80cba39ec21afc6d42ec
+- https://admin-ui.dev-sandbox.workload.avantos-ai.net/docs#/operations/action-blueprint-graph-get
+- https://mui.com/material-ui/all-components/
+- https://www.npmjs.com/package/zustand
+- https://www.npmjs.com/package/reactflow
+- https://nextjs.org/docs
+
+Used LLM:
+
+- ChatGPT
 
 ## Author
 
