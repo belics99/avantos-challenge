@@ -142,7 +142,7 @@ Examples:
 
 Include a 20min. screen recording here:
 
-https://your-video-link.com
+https://we.tl/t-NOFJdHLnep
 
 ## Notes
 
