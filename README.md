@@ -138,7 +138,7 @@ Examples:
     npm run test
 ```
 
-## Demo
+## Screen Rec
 
 Include a 20min. screen recording here:
 
