@@ -1,36 +1,143 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Journey Builder – React Coding Challenge
+
+This project is a simplified implementation of a node-based Journey Builder UI, inspired by Avantos' internal tooling.
+
+It allows users to:
+
+- Visualize a graph of forms (DAG)
+- Inspect forms and their fields
+- Configure prefill mappings between upstream and downstream forms
+- Extend data sources for prefill in a scalable way
+
+## Tech Stack
+
+- Next.js
+- React
+- TypeScript
+- Material UI (MUI)
+- React Flow (for DAG visualization)
+- Zustand (state management)
 
 ## Getting Started
 
-First, run the development server:
+1. Clone the repository
+   git clone https://github.com/belics99/avantos-challenge.git
+   cd avantos-challenge
+2. Install dependencies
+   npm install
+3. Run mock server
+   git clone https://github.com/mosaic-avantos/frontendchallengeserver.git
+   cd frontendchallengeserver
+   npm install
+   npm start
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Mock server runs on:
+http://localhost:3000
+
+4. Run the app
+   npm run dev
+
+App runs on:
+http://localhost:3001
+
+## Architecture Overview
+
+### Graph Rendering
+
+Graph data is fetched from:
+
+/api/v1/:tenantId/actions/blueprints/:actionBlueprintId/graph
+
+- Rendered using React Flow
+- Each node represents a Form
+
+### Prefill Mapping System
+
+Prefill mappings are stored in a normalized structure:
+
+```
+export type TPrefillStoreMapping = Record<
+  string,
+  Record<string, IPrefillMapping>
+>;
+
+export interface IPrefillStore {
+  mappings: TPrefillStoreMapping;
+  setMapping: (
+    formId: string,
+    fieldId: string,
+    mapping: IPrefillMapping,
+  ) => void;
+  clearMapping: (formId: string, fieldId: string) => void;
+}
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Component Structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+/app
+  /page.tsx
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+/components
+  /FormGraph
+  /FormList
+  /FormNode
+  /FormPrefillEditor
+  /PrefillFieldRow
+  /DataSelectorModal
+  ...
 
-## Learn More
+/store
+  /usePrefillStore.ts
 
-To learn more about Next.js, take a look at the following resources:
+/services
+  /graphService.ts
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+/utils
+  /getFormFields.ts
+  /getUpstreamForms.ts
+  /buildFormDefinitionMap.ts
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Extensible Data Sources
 
-## Deploy on Vercel
+Prefill data sources are designed to be pluggable:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+export interface IDataSource {
+  id: string;
+  label: string;
+  getFields(): {
+    id: string;
+    label: string;
+  }[];
+}
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+
+Examples:
+
+- Form fields (direct)
+- Form fields (transitive)
+- Global data
+  <i>New sources can be added without changing UI logic.</i>
+
+## Testing
+
+- Jest
+- React Testing Library
+
+## Demo
+
+Include a 20min. screen recording here:
+
+https://your-video-link.com
+
+## Notes
+
+Used LLM: ChatGPT
+
+## Author
+
+Strahinja Belic
